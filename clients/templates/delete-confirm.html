@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Удалить клиента {{ object.name }}?</h1>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Удалить</button>
+    <a href="{% url 'client-list' %}">Отмена</a>
+</form>
+</body>
+</html>
