@@ -1,9 +1,11 @@
 from django.views.generic import DeleteView, UpdateView, CreateView
 from django.urls import reverse_lazy
 from django_filters.views import FilterView
+from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import Client
 from .filter import ClientAllFilter
+from .form import CreateClientForm
 
 
 class ClientListView(FilterView):
@@ -19,15 +21,18 @@ class ClientDeleteView(DeleteView):
     success_url = reverse_lazy('client-list')
 
 
-class ClientUpdateView(UpdateView):
+class ClientUpdateView(SuccessMessageMixin,UpdateView):
     model = Client
     template_name = 'edit-client.html'
     fields = '__all__'
     success_url = reverse_lazy('client-list')
+    success_message = 'Клиент %(name)s успешно обновлен'
 
 
-class ClientAddView(CreateView):
+class ClientAddView(SuccessMessageMixin,CreateView):
     model = Client
     template_name = 'add-client.html'
-    fields = '__all__'
+    form_class = CreateClientForm
     success_url = reverse_lazy('client-list')
+    success_message = 'Клиент %(name)s успешно добавлен'
+

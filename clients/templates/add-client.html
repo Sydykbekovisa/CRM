@@ -21,5 +21,13 @@
         <button type="submit">Добавить</button>
     </form>
     <a href="{% url 'client-list' %}">Назад к списку</a>
+
+{% if form.errors %}
+    <ul>
+        {% for field, errors in form.errors.items %}
+            <li>{{ field }}: {{ errors|join:", " }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
 </body>
 </html>
